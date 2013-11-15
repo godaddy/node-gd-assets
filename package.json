@@ -1,0 +1,29 @@
+{
+  "version": "1.0.8",
+  "name": "gd-assets",
+  "description": "CSS & JS combiner, compressor, and server",
+  "author": "UCP <ucpdev@godaddy.com>",
+  "contributors": [
+    {"name": "Vincent Fiduccia", "email": "vfiduccia@godaddy.com"}
+  ],
+
+  "dependencies": {
+    "async":      "~0.2",
+    "express":    "~3.3",
+    "handlebars": "~1.0",
+    "hbs":        "~2.3",
+    "ncp":        "~0.4",
+    "uglify-js":  "~2.3",
+    "uglifycss":  "0.0.x"
+  },
+
+  "main": "./index.js",
+
+  "publishConfig": {
+    "registry":"http://npm.intranet.gdg:5984"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.secureserver.net/node/gd-assets"
+  }
+}

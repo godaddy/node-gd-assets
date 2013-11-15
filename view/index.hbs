@@ -1,0 +1,15 @@
+<h1>{{title}} - {{version}}</h1>
+
+<table border="0">
+{{#each groupNames}}
+<tr>
+  <td>{{.}}</td>
+  <td>&nbsp;</td>
+  <td><a href="/{{.}}.js">JS</a></td>
+  <td><a href="/{{.}}.min.js">(minified)</a></td>
+  <td>&nbsp;</td>
+  <td><a href="/{{.}}.css">CSS</a></td>
+  <td><a href="/{{.}}.min.css">(minified)</a></td>
+</tr>
+{{/each}}
+</table>
