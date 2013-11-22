@@ -1,85 +1,81 @@
 var util = require('util');
-var fs  = require('fs');
+var fs  = require('graceful-fs');
 var ncp = require('ncp').ncp;
 var css = require('./routes/css');
 var js = require('./routes/js');
 
-function compile(groups, pkg, outputDir)
+var specialKeys = ['js','css','view','root'];
+var rootKey = 'root';
+
+function copy(src,dest)
 {
-  var keys, key, path, vals, i, j, ilen, jlen;
+  ncp(src, dest, function(err) {
+    if ( err )
+    {
+      console.log('Error copying:' + src,"to",dest,":",err.toString());
+      process.exit(1);
+    }
+  });
+}
+
+function compile(groups, pkg, outputDir, opt)
+{
+  var keys, key, paths, path, vals;
+  opt = opt || {};
 
   if ( !fs.existsSync(outputDir) )
     fs.mkdirSync(outputDir);
 
-  outputDir += '/' + pkg.version;
   console.log('Output Dir:',outputDir)
   if ( !fs.existsSync(outputDir) )
     fs.mkdirSync(outputDir);
 
   if ( groups._paths['root'] )
   {
-    path = groups._paths['root'];
-    console.log('Copying files in ', path,'to',outputDir+'/');
-    var files = fs.readdirSync(path);
-    for ( i = 0, ilen = files.length ; i < ilen; i++ )
-    {
-      ncp(path+'/'+files[i], outputDir+'/', function(err) {
-        if ( err )
-        {
-          console.log('Error copying ' + path+'/'+files[i], err.toString());
-          process.exit(1);
-        }
+    paths = groups._paths['root'];
+    if ( !util.isArray(paths) )
+      paths = [paths];
+
+    paths.forEach(function(path) {
+      console.log('Copying files in ', path,'to',outputDir+'/');
+      var files = fs.readdirSync(path).forEach(function(file) {
+        copy(path+'/'+file,outputDir+'/'+file);
       });
-    }
+    });
   }
 
   keys = Object.keys(groups._paths);
-  for ( i = 0, ilen = keys.length ; i < ilen; i++ )
-  {
-    key = keys[i];
+  keys.forEach(function(key) {
+    if ( specialKeys.indexOf(key) >= 0 )
+      return;;
 
-    if ( ['js','css','view','root'].indexOf(key) >= 0 )
-      continue;
+    paths = groups._paths[key];
+    if ( !util.isArray(paths) )
+      paths = [paths];
 
-    vals = groups._paths[key];
-    if ( !util.isArray(vals) )
-      vals = [vals];
-
-    for ( j = 0, jlen = vals.length ; j < jlen ; j++ )
-    {
-      path = vals[j];
-
+    paths.forEach(function(path) {
       if ( !path )
-        continue;
+        return;
 
       console.log('Copying',key,path,'to',outputDir+'/'+key);
-      ncp(path, outputDir+'/'+key, function(err) {
-        if ( err )
-        {
-          console.log('Error copying ' + path, err.toString());
-          process.exit(1);
-        }
-      });
-    }
-  }
+      copy(path, outputDir+'/'+key);
+    });
+  });
 
   keys = Object.keys(groups);
-  key;
-  for ( i = 0, ilen = keys.length ; i < ilen ; i++ )
-  {
-    key = keys[i];
+  keys.forEach(function(key) {
     if ( key.substr(0,1) == '_' )
     {
       // Skip '_paths' and other special fields
-      continue;
+      return;
     }
 
     console.log('Compiling',key+'...');
-    css.fetch(   groups, key, {}, write.bind(null, outputDir+'/'+key+'.css'));
-    css.fetchMin(groups, key, {}, write.bind(null, outputDir+'/'+key+'.min.css'));
-    js.fetch(    groups, key, {}, write.bind(null, outputDir+'/'+key+'.js'));
-    js.fetchMin( groups, key, {}, write.bind(null, outputDir+'/'+key+'.min.js'));
-  }
+    css.fetch(   groups, key, opt, write.bind(null, outputDir+'/'+key+'.css'));
+    css.fetchMin(groups, key, opt, write.bind(null, outputDir+'/'+key+'.min.css'));
+    js.fetch(    groups, key, opt, write.bind(null, outputDir+'/'+key+'.js'));
+    js.fetchMin( groups, key, opt, write.bind(null, outputDir+'/'+key+'.min.js'));
+  });
 }
 
 function write(path,err,src)

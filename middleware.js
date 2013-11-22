@@ -56,7 +56,7 @@ function register(app, groups, opt)
       if ( !path )
         continue;
 
-      app.use(opt.prefix + (key == 'root' ? '' : key), express.static(path));
+      app.use((key == 'root' ? '/' : opt.prefix+key), express.static(path));
     }
   }
 

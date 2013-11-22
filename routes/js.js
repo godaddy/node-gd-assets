@@ -1,5 +1,5 @@
 var async = require('async');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var UglifyJS = require('uglify-js');
 var grouplib = require('../groups');
 var util = require('util');

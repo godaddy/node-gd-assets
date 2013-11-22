@@ -1,5 +1,4 @@
 var async = require('async');
-var fs = require('fs');
 var uglify = require('uglifycss');
 var grouplib = require('../groups');
 

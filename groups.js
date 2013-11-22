@@ -1,6 +1,6 @@
 var pathlib = require('path');
 var util = require('util');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var async = require('async');
 
 // Renamed from path.exists to fs.exists in Node 0.6

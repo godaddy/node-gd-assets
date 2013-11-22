@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "name": "gd-assets",
   "description": "CSS & JS combiner, compressor, and server",
   "author": "UCP <ucpdev@godaddy.com>",
@@ -10,6 +10,7 @@
   "dependencies": {
     "async":      "~0.2",
     "express":    "~3.3",
+    "graceful-fs":"~2.0",
     "handlebars": "~1.0",
     "hbs":        "~2.3",
     "ncp":        "~0.4",

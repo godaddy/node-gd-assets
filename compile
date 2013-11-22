@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
+var path = require('path');
+var dir = path.resolve(path.dirname(__dirname + "../"));
+process.chdir(dir);
+
 var assets = require('gd-assets');
 
-var groups    = assets.groups.load(__dirname+'/assets.json');
-var pkg       = require('./package.json');
-var outputDir = __dirname+'/compiled';
+var groups    = assets.groups.load(dir+'/assets.json');
+var pkg       = require(dir+'/package.json');
+var outputDir = dir+'/assets';
 
 assets.compile(groups, pkg, outputDir);
