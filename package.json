@@ -1,5 +1,5 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "name": "gd-assets",
   "description": "CSS & JS combiner, compressor, and server",
   "author": "UCP <ucpdev@godaddy.com>",

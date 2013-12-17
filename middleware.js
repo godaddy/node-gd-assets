@@ -11,8 +11,10 @@ function register(app, groups, opt)
 {
   opt = opt || {};
   opt.prefix = opt.prefix || '';
+  opt.rootPrefix = opt.rootPrefix || '/';
 
   opt.prefix = opt.prefix.replace(/\/$/,'')+'/';
+  opt.rootPrefix = opt.rootPrefix.replace(/\/$/,'')+'/';
 
   var keys = Object.keys(groups);
   app.use(opt.prefix, function serveAsset(req, res, next) {
@@ -56,7 +58,8 @@ function register(app, groups, opt)
       if ( !path )
         continue;
 
-      app.use((key == 'root' ? '/' : opt.prefix+key), express.static(path));
+// console.log('key:',key,'path:',path,'root:',opt.rootPrefix,'regular:',opt.prefix+key);
+      app.use((key == 'root' ? opt.rootPrefix : opt.prefix+key), express.static(path, {maxAge: 1000}));
     }
   }
 
