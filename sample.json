@@ -1,0 +1,36 @@
+{
+  "rootFileDirs": [
+    "public/root"
+  ],
+
+  "staticFileDirs": {
+    "font": "public/font",
+    "image": "public/image"
+  },
+
+  "groups": {
+    "framework": {
+      "save": false,
+      "baseDir": "public",
+      "js":  ["jquery","bootstrap"],
+      "css": ["bootstrap"]
+    },
+
+    "main": {
+      "include": [
+        "framework"
+      ],
+      "js": [
+        "HTMLApi",
+        "Explorer"
+      ],
+      "hbs": [
+        "body",
+        "edit"
+      ],
+      "css": [
+        "explorer"
+      ]
+    }
+  }
+}
