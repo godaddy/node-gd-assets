@@ -3,7 +3,6 @@ gd-assets
 JS/CSS combining, compression, and serving.
 
 [![Dependency Status](https://gemnasium.com/godaddy/node-gd-assets.svg)](https://gemnasium.com/godaddy/node-gd-assets)
-[![NPM](http://img.shields.io/npm/godaddy/node-gd-assets.svg)](https://www.npmjs.org/package/gd-assets)
 
 # Usage
 
