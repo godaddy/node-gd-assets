@@ -1,20 +1,19 @@
 {
   "rootFileDirs": [
-    "public/root"
+    "root"
   ],
 
   "staticFileDirs": {
-    "font": "public/font",
-    "image": "public/image"
+    "font": "font",
+    "image": ["image", "vendor/more_images"],
   },
 
   "groups": {
-    "framework": {
+    "frameworks": {
       "saveOutput": false,
       "baseDir": "public",
       "js":  ["jquery","bootstrap"],
       "css": ["bootstrap"],
-      "view": ["actions"]
     },
 
     "main": {
@@ -22,15 +21,15 @@
         "framework"
       ],
       "js": [
-        "HTMLApi",
-        "Explorer"
+        "App",
+        "Utils"
       ],
       "view": [
-        "body",
-        "edit"
+        "layout",
+        "main"
       ],
       "css": [
-        "explorer"
+        "main"
       ]
     }
   }
