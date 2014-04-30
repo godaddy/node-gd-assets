@@ -55,7 +55,7 @@ Name | Applies To | Default | Description
 <code>emberViews:</code> | All | false | If true, use Ember's handlebars to produce compiled views that will work in Ember
 <code>emberPath: | All | *none* | If <code>emberViews:</code> is <code>true</code>, the path to ember.js to use when compiling
 <code>handlebarsPath:</code> | All | *none* | If <code>emberViews:</code> is <code>true</code>, the path to handlebars.js to use when compiling
-<code>jsmin:</code> | All | {} | Options to pass to UglifyJS (see [documentation](https://github.com/mishoo/UglifyJS)) 
+<code>jsmin:</code> | All | {warnings: false} | Options to pass to UglifyJS (see [documentation](https://github.com/mishoo/UglifyJS2)) 
 
 # Assets.json file
 --------

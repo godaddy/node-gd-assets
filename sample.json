@@ -10,10 +10,11 @@
 
   "groups": {
     "framework": {
-      "save": false,
+      "saveOutput": false,
       "baseDir": "public",
       "js":  ["jquery","bootstrap"],
-      "css": ["bootstrap"]
+      "css": ["bootstrap"],
+      "view": ["actions"]
     },
 
     "main": {
@@ -24,7 +25,7 @@
         "HTMLApi",
         "Explorer"
       ],
-      "hbs": [
+      "view": [
         "body",
         "edit"
       ],
