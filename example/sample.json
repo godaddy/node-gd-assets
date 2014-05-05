@@ -1,0 +1,36 @@
+{
+  "rootFileDirs": [
+    "root"
+  ],
+
+  "staticFileDirs": {
+    "font": "font",
+    "image": ["image", "vendor/more_images"],
+  },
+
+  "groups": {
+    "frameworks": {
+      "saveOutput": false,
+      "baseDir": "public",
+      "js":  ["jquery","bootstrap"],
+      "css": ["bootstrap"],
+    },
+
+    "main": {
+      "include": [
+        "framework"
+      ],
+      "js": [
+        "App",
+        "Utils"
+      ],
+      "view": [
+        "layout",
+        "main"
+      ],
+      "css": [
+        "main"
+      ]
+    }
+  }
+}
