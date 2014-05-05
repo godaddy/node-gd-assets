@@ -9,7 +9,7 @@ JS/CSS combining, compression, and serving.
 ## Compiling to files
 ```javascript
 var Assets    = require('gd-assets');
-var config    = Assets.config.load('/path/to/your/assets.json');
+var config    = Assets.Config.load('/path/to/your/assets.json');
 var pkg       = require('/path/to/your/package.json');
 var outputDir = '/path/to/compiled'
 
@@ -17,7 +17,7 @@ var opt = {
   // See options
 };
 
-Assets.compile(config, pkg, outputDir, opt);
+Assets.Compile(config, pkg, outputDir, opt);
 ```
 
 ## As a middleware
@@ -25,22 +25,22 @@ Assets.compile(config, pkg, outputDir, opt);
 var app = express(); // Or connect
 
 var Assets = require('gd-assets');
-var config = Assets.config.load('/path/to/your/assets.json');
+var config = Assets.Config.load('/path/to/your/assets.json');
 var opt = {
   // See options
 };
 
-Assets.middleware(app, config, opt);
+Assets.Middleware(app, config, opt);
 ```
 
 ## As a standalone server
 ```javascript
 var Assets = require('gd-assets');
-var config = Assets.config.load('/path/to/assets.json');
+var config = Assets.Config.load('/path/to/assets.json');
 var pkg    = require('/path/to/package.json');
 var port   = 3000;
 
-Assets.server(config, pkg, port);
+Assets.Server(config, pkg, port);
 ```
 
 # Options
