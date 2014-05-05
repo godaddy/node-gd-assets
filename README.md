@@ -10,7 +10,7 @@ JS/CSS combining, compression, and serving.
 ```javascript
 var Assets    = require('gd-assets');
 var config    = Assets.config.load('/path/to/your/assets.json');
-var pkg       = require(/path/to/your/package.json');
+var pkg       = require('/path/to/your/package.json');
 var outputDir = '/path/to/compiled'
 
 var opt = {
@@ -25,7 +25,7 @@ Assets.compile(config, pkg, outputDir, opt);
 var app = express(); // Or connect
 
 var Assets = require('gd-assets');
-var config = Assets.config.load(/path/to/your/assets.json');
+var config = Assets.config.load('/path/to/your/assets.json');
 var opt = {
   // See options
 };
@@ -40,7 +40,7 @@ var config = Assets.config.load('/path/to/assets.json');
 var pkg    = require('/path/to/package.json');
 var port   = 3000;
 
-assets.server(config, pkg, port);
+Assets.server(config, pkg, port);
 ```
 
 # Options
@@ -115,7 +115,7 @@ All files are included in the output in the order they appear in the input array
   }
 }
 ```
-Groups that contain <code>"saveOutput": false</code> can be used as includes in other groups for logical organization, but will not produce any output file/URL themselves.  In the example above, only <code>main[.min].[js|css]</code> would be produced, not <code>framework[.min].[js|css]</code>
+Groups that contain <code>"saveOutput": false</code> can be used as includes in other groups for logical organization, but will not produce any output file/URL themselves.  In the example above, only <code>main[.min].[js|css]</code> would be produced, not <code>framework[.min].[js|css]</code>.
 
 ## Images and other static files
 Directories of additional 'static' assets that do not need to be compiled may also be included using the <code>"staticFileDirs":</code> property.
@@ -141,7 +141,7 @@ Root files are similar to staticFileDirs, but are intended to be served from the
 ```
 
 ## Path resolution
-All paths are relative to <code>{the location of the assets.json file}/public</code> by default.  Relative paths may include <code>../</code>:
+All paths are relative to <code>{the directory the assets.json file is in}/public</code> by default.  Relative paths may include <code>../</code>:
 ```javascript
 {
   "staticFileDirs": {
