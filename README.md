@@ -43,20 +43,6 @@ var port   = 3000;
 Assets.Server(config, pkg, port);
 ```
 
-# Options
-
-Name | Applies To | Default | Description
------|------------|---------|-------------
-<code>prefix:</code> | Middleware | / | Base path to listen for requests on.  e.g. '/assets' will make things available at http://host:port/assets/something.js
-<code>rootPrefix:</code> | Middleware | / | If [root files](#root-files) are specified, the base path to listen for root requests on.  Since the point of root files is to be at the root, you probably don't want to change this.
-<code>tplPrefix:</code>  | All | *none* | If set, this prefix will prepended to template names in the compiled output, so you will ask handlebars to render <code>{tplPrefix}{templateName}</code>
-<code>handlebarVar:</code> | All | Handlebars | Client-side variable name where Handlebars can be found.  Will be included in the compiled output.
-<code>templateVar:</code> | All | Handlebars.templates | Client-side variable name where compiled templates will be put.
-<code>emberViews:</code> | All | false | If true, use Ember's Handlebars to produce compiled views that will work in Ember instead of the standard Handlebars.
-<code>emberPath: | All | *none* | If <code>emberViews:</code> is <code>true</code>, the path to ember.js to use when compiling
-<code>handlebarsPath:</code> | All | *none* | If <code>emberViews:</code> is <code>true</code>, the path to handlebars.js to use when compiling
-<code>jsmin:</code> | All | {warnings: false, hoist_funs: false} | Options to pass to UglifyJS (see [documentation](https://github.com/mishoo/UglifyJS2)) 
-
 # Assets.json file
 --------
 
@@ -172,3 +158,18 @@ Individual groups may specify an alternate base directory for the paths to be re
   }
 }
 ```
+
+# Options
+
+Name | Default | Description
+-----|---------|-------------
+<code>prefix:</code> | / | For middleware mode, the base path to listen for requests on.  e.g. '/assets' will make things available at http://host:port/assets/something.js
+<code>rootPrefix:</code> | / | For middleware mode, if [root files](#root-files) are specified, the base path to listen for root requests on.  Since the point of root files is to be at the root, you probably don't want to change this.
+<code>tplPrefix:</code>  | *none* | If set, this prefix will prepended to template names in the compiled output, so you will ask handlebars to render <code>{tplPrefix}{templateName}</code>
+<code>handlebarVar:</code> | Handlebars | Client-side variable name where Handlebars can be found.  Will be included in the compiled output.
+<code>templateVar:</code> | Handlebars.templates | Client-side variable name where compiled templates will be put.
+<code>emberViews:</code> | false | If true, use Ember's Handlebars to produce compiled views that will work in Ember instead of the standard Handlebars.
+<code>emberPath: | *none* | If <code>emberViews:</code> is <code>true</code>, the path to ember.js to use when compiling
+<code>handlebarsPath:</code> | *none* | If <code>emberViews:</code> is <code>true</code>, the path to handlebars.js to use when compiling
+<code>jsmin:</code> | {warnings: false, hoist_funs: false} | Options to pass to UglifyJS (see [documentation](https://github.com/mishoo/UglifyJS2)) 
+
