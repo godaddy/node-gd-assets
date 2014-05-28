@@ -104,7 +104,7 @@ All files are included in the output in the order they appear in the input array
 Groups that contain <code>"saveOutput": false</code> can be used as includes in other groups for logical organization, but will not produce any output file/URL themselves.  In the example above, only <code>main[.min].[js|css]</code> would be produced, not <code>framework[.min].[js|css]</code>.
 
 ## Images and other static files
-Directories of additional 'static' assets that do not need to be compiled may also be included using the <code>"staticFileDirs":</code> property.
+Directories of additional 'static' assets that do not need to be compiled may also be included using the <code>"staticFileDirs":</code> property.  Paths are relative to the location of the config file.
 ```javascript
 {
   "staticFileDirs": {
@@ -116,7 +116,7 @@ Directories of additional 'static' assets that do not need to be compiled may al
 The above example will make the contents of <code>public/my-images</code> available at <code>{prefix}/image/</code> and <code>/path/to/some/fonts</code> at <code>{prefix}/font</code>.
 
 ## Root files
-Root files are similar to staticFileDirs, but are intended to be served from the absolute root of your URL (http://app.com/).  This is useful for things like favicon.ico and robots.txt that are expected to be at the root of the site even if the rest of the assets aren't.
+Root files are similar to staticFileDirs, but are intended to be served from the absolute root of your URL (http://app.com/).  This is useful for things like favicon.ico and robots.txt that are expected to be at the root of the site even if the rest of the assets aren't.  Paths are relative to the location of the config file.
 ```javascript
 {
   "rootFileDirs": [
@@ -127,37 +127,59 @@ Root files are similar to staticFileDirs, but are intended to be served from the
 ```
 
 ## Path resolution
-All paths are relative to <code>{the directory the assets.json file is in}/public</code> by default.  Relative paths may include <code>../</code>:
-```javascript
-{
-  "staticFileDirs": {
-    "image": "../vendor/blah/images"
-  }
-}
-```
-
-You may also specify absolute paths:
-```javascript
-{
-  "staticFileDirs": {
-    "image": "/path/to/some/images"
-  }
-}
-```
-
-Individual groups may specify an alternate base directory for the paths to be relative to:
+### Group entries ###
+Group entry paths are relative to <code>{the directory the assets.json file is in}/public/{js,css,view}/</code> by default.  All examples below assume the assets.json file is located at /app/assets.json.
 ```javascript
 {
   "groups": {
     "main": {
-      "baseDir": "vendor", // <-- Relative to the directory the assets.json file is in, or absolute
+      "js": ["things"] // -> /app/public/js/things.js
+  }
+}
+```
+
+Relative paths may include <code>../</code>:
+```javascript
+{
+  "groups": {
+    "main": {
+      "js": ["../vendor/blah/things"]  // -> /app/public/js/../vendor/things.js -> /app/public/vendor/things.js
+  }
+}
+```
+
+Or you can specify an absolute path:
+```javascript
+{
+  "groups": {
+    "main": {
+      "js": ["/path/to/some/things"] // -> /path/to/some/things.js
+    }
+  }
+}
+```
+
+Individual groups may specify an alternate base directory for the paths to be relative to.
+  * If specified, <code>public/{js,css,view}</code> will not be added automatically for you.
+```javascript
+{
+  "groups": {
+    "main": {
+      "baseDir": "vendor", // <-- Relative to the directory the assets.json file is in, or absolute.  See below.
       "js": [
-        "jquery" // <-- Will look for {directory assets.json file is in}/vendor/jquery.js
+        "jquery" // <-- /app/vendor/jquery.js
+      ],
+      "css": [
+        "jquery" // <-- /app/vendor/jquery.css
       ]
     }
   }
 }
 ```
+
+### Static paths and base directories ###
+<code>rootFileDirs</code>, <code>staticFileDirs</code>, and <code>baseDir</code> paths are relative to directory the assets.json file is in.  Relative paths, including <code>../</code> and absolute paths may be used.
+
 
 # Options
 
@@ -168,6 +190,7 @@ Name | Default | Description
 <code>tplPrefix:</code>  | *none* | If set, this prefix will prepended to template names in the compiled output, so you will ask handlebars to render <code>{tplPrefix}{templateName}</code>
 <code>handlebarVar:</code> | Handlebars | Client-side variable name where Handlebars can be found.  Will be included in the compiled output.
 <code>templateVar:</code> | Handlebars.templates | Client-side variable name where compiled templates will be put.
+<code>templatePrefix:</code> | *none* | Prefix to put on template names when defining them in the compiled output.
 <code>emberViews:</code> | false | If true, use Ember's Handlebars to produce compiled views that will work in Ember instead of the standard Handlebars.
 <code>emberPath: | *none* | If <code>emberViews:</code> is <code>true</code>, the path to ember.js to use when compiling
 <code>handlebarsPath:</code> | *none* | If <code>emberViews:</code> is <code>true</code>, the path to handlebars.js to use when compiling
