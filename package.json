@@ -15,11 +15,11 @@
   },
 
   "dependencies": {
-    "async":          "~0.9",
+    "async":          "~3.2.2",
     "compression":    "~1",
     "express":        "~4",
     "graceful-fs":    "~3",
-    "hbs":            "~2",
+    "hbs":            "~4.0.1",
     "morgan":         "~1",
     "ncp":            "~0.6",
     "static-favicon": "~1",
